@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <canvas id="playSpace" width="780" height="350" style="background-color: lightgray;"></canvas>
+<script>
+    // var definement
+    var playSpace = document.getElementById("playSpace");
+    var ctx = playSpace.getContext("2d");
+    var knifeRotation = 0;
+
+
+    function restore(){
+        ctx.rotate(0);
+        ctx.translate(-30, -90);
+    }
+    // converts x to radians
+    function rad(x){
+        return x * Math.PI / 180
+    }
+
+    // draws a knife
+    function drawKnife(){
+        ctx.translate(30, 90)
+        ctx.rotate(rad(knifeRotation));
+        ctx.beginPath();
+        ctx.fillStyle = "rgb(0,0,255)";
+        ctx.fillRect(0,0,10,80);
+
+        ctx.fillStyle = "rgb(255, 0, 0)";
+        ctx.fillRect(0, 80, 10, 20);
+        ctx.stroke();
+        restore();
+    }
+
+    function renderBlocks(){
+
+    }
+
+    function loop(){
+        //clear canvas and fix the canvas rotation
+        ctx.clearRect(0, 0, playSpace.width, playSpace.height);
+
+        // draw environment
+        drawKnife();
+
+
+        // prepare next frame
+        if (knifeRotation == 360){
+            knifeRotation = 0;
+        }
+        knifeRotation += 1;
+        
+        
+    }
+    ctx.translate(30,50);
+    requestAnimationFrame(loop)
+
+</script>
+
+</html>
